@@ -2,8 +2,8 @@
 import cv2
 import os
 
-video_url = '/Users/kallifeinberg/Documents/Senior/Semester2/CS1430/cv_final_proj/data/video/vid2.mp4'
-directory_name = '5mvid2'
+video_url = '/Users/kallifeinberg/Documents/Senior/Semester2/CS1430/cv_final_proj/data/video/10mvid2.mp4'
+directory_name = '10mvid2'
 sec = 0
 frameRate = 0.1 # it will capture images every 0.5 seconds
 count = 1
