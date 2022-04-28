@@ -10,16 +10,16 @@ count = 1
 
 vidcap = cv2.VideoCapture(video_url)
 os.mkdir("../data/images/" + directory_name)
-def getFrame(sec):
+def get_frame(sec):
     vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
     hasFrames,image = vidcap.read()
     if hasFrames:
         cv2.imwrite("../data/images/" + directory_name + "/" + str(count)+".jpg", image)     # save frame as JPG file
     return hasFrames
 
-success = getFrame(sec)
+success = get_frame(sec)
 while success:
     count = count + 1
     sec = sec + frameRate
     sec = round(sec, 2)
-    success = getFrame(sec)
+    success = get_frame(sec)
