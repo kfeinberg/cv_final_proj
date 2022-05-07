@@ -1,0 +1,26 @@
+<annotation>
+	<folder>omac_b10</folder>
+	<filename>13.jpg</filename>
+	<path>/Users/isabelletowle/cs1430/cv_final_proj/data/images/omac_b10/13.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Frisbee</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>986</xmin>
+			<ymin>689</ymin>
+			<xmax>1066</xmax>
+			<ymax>715</ymax>
+		</bndbox>
+	</object>
+</annotation>
