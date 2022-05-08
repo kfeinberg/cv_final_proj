@@ -1,0 +1,26 @@
+<annotation>
+	<folder>10mvid3</folder>
+	<filename>13.jpg</filename>
+	<path>C:\Users\mtapi\OneDrive\Documents\Brown\cs1430\project\cv_final_proj\data\images\10mvid3\13.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Frisbee</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1205</xmin>
+			<ymin>795</ymin>
+			<xmax>1254</xmax>
+			<ymax>817</ymax>
+		</bndbox>
+	</object>
+</annotation>
