@@ -2,7 +2,7 @@ import os
 
 def getDirectoryList(path):
     directoryList = []
-
+    prefix = []
     #return nothing if path is a file
     if os.path.isfile(path):
         return []
