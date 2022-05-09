@@ -1,7 +1,9 @@
-frisbee_diameter = 18.5
+frisbee_diameter = 18.5 # unit is inches
+dt = .05
+inches_to_meters = .0254
 
-def get_speed(pixel_width, pixel_centroid_dist, dt):
-    ppi = pixel_width / frisbee_diameter
-    world_centroid_dist = pixel_centroid_dist / ppi # maybe multiply? idk
+def get_speed(frisbee_pixel_width, centroid_pixel_dist):
+    ppi = frisbee_pixel_width / frisbee_diameter
+    world_centroid_dist = centroid_pixel_dist / ppi
     speed = world_centroid_dist / dt
-    return speed
+    return speed * .0254 # current unit is meters/second
