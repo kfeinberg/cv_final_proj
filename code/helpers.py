@@ -54,18 +54,25 @@ def show_matches(image1, image2, points1, points2):
 
 # TODO: this is so approximate!
 # TODO: should hardcode values be parameters to function??
-def calculate_projection_matrix(focal_length):
+def calculate_projection_matrix(focal_length, origin):
     """
     Calculates projection matrix based on intrinsic data
     """
+    theta = 0
+    tx = 0
+    ty = 0
+    tz = 0
+
+    # calculating for the phone that is not the origin
+    if not origin:
+        theta = 40 * pi / 180 # 40 degrees in radians
+        tx = 6.5 # in meters
+        ty = 0 # no up and down movement
+        tz = -4.66 # in meters
+
     K = [[focal_length, 0, 0],[0, focal_length, 0],[0, 0, 1]]
-    theta = 40 * pi / 180 # 40 degrees in radians
-    tx = 6.5 # in meters
-    ty = 0 # no up and down movement
-    tz = -4.66 # in meters
     Rt = [[cos(theta), 0, sin(theta), tx], [0, 1, 0, ty], [-sin(theta), 0, cos(theta), tz]]
     return np.matmul(K, Rt)
-
 
 def matches_to_3d(points1, points2, M1, M2):
     """
