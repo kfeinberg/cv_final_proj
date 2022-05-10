@@ -43,11 +43,12 @@ def main():
         ]
         # parse each xml file for that video in order by appending _[number] to the video name
         image_xmls = sorted(image_xmls, key=sort_files)
-        for image_xml in image_xmls:
-            xmin, ymin, xmax, ymax = parse_xml(image_xml)
-            print(image_xml)
-            print(xmin, ymin, xmax, ymax)
-            print('--------')
+        num_images = len(image_xmls)
+        for i in range(num_images - 1):
+            curr_image = image_xmls[i]
+            next_image = image_xmls[i+1]
+            curr_xmin, curr_ymin, curr_xmax, curr_ymax = parse_xml(curr_image)
+            next_xmin, next_ymin, next_xmax, next_ymax = parse_xml(next_image)
             # calculate speed traveled with both algorithms --> get_camera_projection_speed() and get_physics_algo_speed()
             # display bounding box and both physics and camera geometry speeds on next image --> kallis_function(cp_speed, physics_speed, image_filename, bbox_coords)
 
