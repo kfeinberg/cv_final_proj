@@ -106,12 +106,18 @@ def img_split(dirs: list, destination: str, ratio = [0.8, 0.1, 0.1]):
             print(f"The {folder} dir did exist, so it has been removed")
 
 
-    if len(val) > 0: #not empty
-        train_dir_cnt, train_file_cnt = img_copy(dirs= train, destination = destination, folder = 'train')
     if len(train) > 0: #not empty
+        train_dir_cnt, train_file_cnt = img_copy(dirs= train, destination = destination, folder = 'train')
+    else:
+        train_dir_cnt, train_file_cnt = 0,0
+    if len(val) > 0: #not empty
         val_dir_cnt, val_file_cnt = img_copy(dirs= val, destination = destination, folder = 'validation')
+    else:
+        val_dir_cnt, val_file_cnt = 0, 0
     if len(test) > 0: #not empty
         test_dir_cnt, test_file_cnt = img_copy(dirs= test, destination = destination, folder = 'test')
+    else:
+        test_dir_cnt, test_file_cnt = 0,0
 
     print(f"Was able to move {train_dir_cnt} folders & {train_file_cnt} files into TRAIN")
     print(f"& able to move {val_dir_cnt} folders & {val_file_cnt} files into VALIDATION")
@@ -121,6 +127,6 @@ if __name__ == "__main__":
     dirs = getDirectoryList('./data/images/')
     #print(dirs)
     dest = "./data"
-    ratio = [0.6, 0.1, 0.3]
+    ratio = [1.0, 0.0, 0.0]
 
     img_split(dirs, dest, ratio)

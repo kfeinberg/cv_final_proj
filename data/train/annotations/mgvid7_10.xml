@@ -1,0 +1,26 @@
+<annotation>
+	<folder>mgvid7</folder>
+	<filename>mgvid7_10.jpg</filename>
+	<path>/Users/ailitaeddy/Senior_Year_School_Stuff/Spring_22/CV/cv_final_proj/data/images/mgvid7/10.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Frisbee</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1026</xmin>
+			<ymin>664</ymin>
+			<xmax>1097</xmax>
+			<ymax>702</ymax>
+		</bndbox>
+	</object>
+</annotation>
