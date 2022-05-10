@@ -22,7 +22,9 @@ def parse_xml(filename):
 
 def sort_files(filename):
     split_name = filename.split('_')
-    return split_name.pop()
+    last_section = split_name.pop()
+    number = last_section.split('.')[0]
+    return int(number)
 
 def main():
     xml_files = os.listdir(directory)
