@@ -67,7 +67,7 @@ def calculate_projection_matrix(focal_length, origin):
 
     # calculating for the phone that is not the origin
     if not origin:
-        theta = 40 * pi / 180 # 40 degrees in radians
+        theta = 30 * pi / 180 # 40 degrees in radians
         tx = 6.5 # in meters
         ty = 0 # no up and down movement
         tz = -4.66 # in meters
@@ -130,10 +130,10 @@ def matches_to_3d(points1, points2, M1, M2):
 
 # takes centroids of frisbees in two frames and finds speed between them
 def get_speed(point1, point2):
-    return math.dist(point1, point2) / dt
+    return math.sqrt( ((point1[0]-point2[0])**2)+((point1[1]-point2[1])**2)) / dt
 
 
-def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_image_path, output_image_path, avg_speed=""):
+def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_image_path, output_image_path, avg_phys_speed="", avg_proj_speed=""):
     img = Image.open(input_image_path)
     
     font_fname = 'arial.ttf'
@@ -144,7 +144,9 @@ def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_ima
     draw.rectangle([(xmin,ymin),(xmax,ymax)], width=8, outline="black")
     draw.text((10, 10),"Physics calculated speed: " + str(round(physics_speed, 2)) + "m/s", (0,0,0), font=font)
     draw.text((10, 60),"Camera calculated speed: " + str(round(camera_speed, 2)) + "m/s", (0,0,0), font=font)
-    if (avg_speed != ""):
-        draw.text((10, 110),"Average speed: " + str(round(avg_speed, 2)) + "m/s", (0,0,0), font=font)
+    if (avg_phys_speed != ""):
+        draw.text((10, 110),"Average physics speed: " + str(round(avg_phys_speed, 2)) + "m/s", (0,0,0), font=font)
+    if (avg_proj_speed != ""):
+        draw.text((10, 160),"Average camera projection speed: " + str(round(avg_proj_speed, 2)) + "m/s", (0,0,0), font=font)
 
     img.save(output_image_path)

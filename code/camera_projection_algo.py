@@ -14,4 +14,4 @@ M2 = helpers.calculate_projection_matrix(focal_length_xs, False)
 #parameters: 2 consecutive centroids from camera 1, 2 consecutive centroids from camera2
 def get_camera_projection_speed(camera1_centroids, camera2_centroid):
     points3d = helpers.matches_to_3d(camera1_centroids, camera2_centroid, M1, M2)
-    return helpers.get_speed(points3d)
+    return helpers.get_speed(points3d[0], points3d[1])
