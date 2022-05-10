@@ -1,5 +1,5 @@
 from cmath import pi, sin, cos
-from math import dist
+import math
 import cv2
 import numpy as np
 from skimage import img_as_float32
@@ -9,6 +9,8 @@ import random
 from os import uname
 from re import U
 import random
+from PIL import Image, ImageDraw as D
+import PIL.ImageFont as ImageFont
 
 dt = .05
 
@@ -128,4 +130,19 @@ def matches_to_3d(points1, points2, M1, M2):
 
 # takes centroids of frisbees in two frames and finds speed between them
 def get_speed(point1, point2):
-    return dist(point1, point2) / dt
+    return math.dist(point1, point2) / dt
+
+
+def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_image_path, output_image_path):
+    img = Image.open(intput_image_path)
+    
+    font_fname = 'arial.ttf'
+    font_size = 40
+    font = ImageFont.truetype(font_fname, font_size)
+
+    draw = D.Draw(img, "RGBA")
+    draw.rectangle([(xmin,ymin),(xmax,ymax)], width=8, outline="black")
+    draw.text((10, 10),"Physics calculated speed: " + str(physics_speed) + "m/s", (0,0,0), font=font)
+    draw.text((10, 60),"Camera calculated speed: " + str(camera_speed) + "m/s", (0,0,0), font=font)
+
+    img.save(output_image_path)
