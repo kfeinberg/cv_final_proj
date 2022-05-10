@@ -133,8 +133,8 @@ def get_speed(point1, point2):
     return math.dist(point1, point2) / dt
 
 
-def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_image_path, output_image_path):
-    img = Image.open(intput_image_path)
+def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_image_path, output_image_path, avg_speed=""):
+    img = Image.open(input_image_path)
     
     font_fname = 'arial.ttf'
     font_size = 40
@@ -142,7 +142,9 @@ def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_ima
 
     draw = D.Draw(img, "RGBA")
     draw.rectangle([(xmin,ymin),(xmax,ymax)], width=8, outline="black")
-    draw.text((10, 10),"Physics calculated speed: " + str(physics_speed) + "m/s", (0,0,0), font=font)
-    draw.text((10, 60),"Camera calculated speed: " + str(camera_speed) + "m/s", (0,0,0), font=font)
+    draw.text((10, 10),"Physics calculated speed: " + str(round(physics_speed, 2)) + "m/s", (0,0,0), font=font)
+    draw.text((10, 60),"Camera calculated speed: " + str(round(camera_speed, 2)) + "m/s", (0,0,0), font=font)
+    if (avg_speed != ""):
+        draw.text((10, 110),"Average speed: " + str(round(avg_speed, 2)) + "m/s", (0,0,0), font=font)
 
     img.save(output_image_path)
