@@ -1,3 +1,5 @@
+from cmath import pi, sin, cos
+from math import dist
 import cv2
 import numpy as np
 from skimage import img_as_float32
@@ -7,6 +9,8 @@ import random
 from os import uname
 from re import U
 import random
+
+dt = .05
 
 def get_matches(image1, image2):
     """
@@ -48,13 +52,27 @@ def show_matches(image1, image2, points1, points2):
 
     plt.show()
 
-
-def calculate_projection_matrix(focal_length):
+# TODO: this is so approximate!
+# TODO: should hardcode values be parameters to function??
+def calculate_projection_matrix(focal_length, origin):
     """
     Calculates projection matrix based on intrinsic data
     """
-    return [[focal_length, 0, 0, 0],[0, focal_length, 0, 0],[0, 0, 1, 0]]
+    theta = 0
+    tx = 0
+    ty = 0
+    tz = 0
 
+    # calculating for the phone that is not the origin
+    if not origin:
+        theta = 40 * pi / 180 # 40 degrees in radians
+        tx = 6.5 # in meters
+        ty = 0 # no up and down movement
+        tz = -4.66 # in meters
+
+    K = [[focal_length, 0, 0],[0, focal_length, 0],[0, 0, 1]]
+    Rt = [[cos(theta), 0, sin(theta), tx], [0, 1, 0, ty], [-sin(theta), 0, cos(theta), tz]]
+    return np.matmul(K, Rt)
 
 def matches_to_3d(points1, points2, M1, M2):
     """
@@ -107,3 +125,7 @@ def matches_to_3d(points1, points2, M1, M2):
     points3d = points3d.tolist()
 
     return points3d
+
+# takes centroids of frisbees in two frames and finds speed between them
+def get_speed(point1, point2):
+    return dist(point1, point2) / dt
