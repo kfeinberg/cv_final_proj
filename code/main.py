@@ -52,6 +52,7 @@ def camera_projection_calculation(video1name, video2name):
 
     physics_speeds = []
     proj_speeds = []
+    centroids = []
 
     if not os.path.exists("../output/" + video1name):
 
@@ -84,62 +85,64 @@ def camera_projection_calculation(video1name, video2name):
             physics_speeds.append(physics_speed)
             proj_speeds.append(camera_proj_speed)
 
-            helpers.draw_on_image(next_xmin1, next_ymin1, next_xmax1, next_ymax1, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video1name + "/" + next_image_name)
+            centroids.append(curr_centroid1)
+
+            helpers.draw_on_image(next_xmin1, next_ymin1, next_xmax1, next_ymax1, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video1name + "/" + next_image_name, centroids=centroids)
         
         avg_phys_speed = sum(physics_speeds)/len(physics_speeds)
         avg_proj_speed = sum(proj_speeds)/len(proj_speeds)
-        helpers.draw_on_image(next_xmin1, next_ymin1, next_xmax1, next_ymax1, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video1name + "/" + next_image_name.split(".")[0] + "_avg.jpg", avg_phys_speed=avg_phys_speed, avg_proj_speed=avg_proj_speed)
+        helpers.draw_on_image(next_xmin1, next_ymin1, next_xmax1, next_ymax1, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video1name + "/" + next_image_name.split(".")[0] + "_avg.jpg", avg_phys_speed=avg_phys_speed, avg_proj_speed=avg_proj_speed,centroids=centroids)
 
 def main():
-    camera_projection_calculation("mgvid8", "a_mgvid8")
-    # xml_files = os.listdir(directory)
-    # # get set of all video/throw names
-    # video_names = set()
-    # for file in xml_files:
-    #     filename = os.fsdecode(file)
-    #     split_name = filename.split('_')
-    #     split_name.pop()
-    #     video_names.add('_'.join(split_name))
+    camera_projection_calculation("mgvid9", "a_mgvid9")
+    xml_files = os.listdir(directory)
+    # get set of all video/throw names
+    video_names = set()
+    for file in xml_files:
+        filename = os.fsdecode(file)
+        split_name = filename.split('_')
+        split_name.pop()
+        video_names.add('_'.join(split_name))
     
-    # for video_name in video_names:
-    #     # select all xml files for that video
-    #     image_xmls = [
-    #         os.fsdecode(file)
-    #         for file in xml_files
-    #         if os.fsdecode(file).startswith(video_name)
-    #     ]
-    #     # parse each xml file for that video in order by appending _[number] to the video name
-    #     image_xmls = sorted(image_xmls, key=sort_files)
-    #     num_images = len(image_xmls)
+    for video_name in video_names:
+        # select all xml files for that video
+        image_xmls = [
+            os.fsdecode(file)
+            for file in xml_files
+            if os.fsdecode(file).startswith(video_name)
+        ]
+        # parse each xml file for that video in order by appending _[number] to the video name
+        image_xmls = sorted(image_xmls, key=sort_files)
+        num_images = len(image_xmls)
 
-    #     physics_speeds = []
+        physics_speeds = []
 
-    #     if not os.path.exists("../output/" + video_name):
+        if not os.path.exists("../output/" + video_name):
 
-    #         os.mkdir("../output/" + video_name)
+            os.mkdir("../output/" + video_name)
 
-    #         for i in range(num_images - 1):
-    #             curr_image = image_xmls[i]
-    #             next_image = image_xmls[i+1]
-    #             curr_xmin, curr_ymin, curr_xmax, curr_ymax = parse_xml(curr_image)
-    #             next_xmin, next_ymin, next_xmax, next_ymax = parse_xml(next_image)
+            for i in range(num_images - 1):
+                curr_image = image_xmls[i]
+                next_image = image_xmls[i+1]
+                curr_xmin, curr_ymin, curr_xmax, curr_ymax = parse_xml(curr_image)
+                next_xmin, next_ymin, next_xmax, next_ymax = parse_xml(next_image)
 
-    #             next_image_name = get_image_name(next_image)
+                next_image_name = get_image_name(next_image)
 
-    #             curr_centroid = [(curr_xmin + curr_xmax)/2, (curr_ymin + curr_ymax)/2]
-    #             next_centroid = [(next_xmin + next_xmax)/2, (next_ymin + next_ymax)/2]
+                curr_centroid = [(curr_xmin + curr_xmax)/2, (curr_ymin + curr_ymax)/2]
+                next_centroid = [(next_xmin + next_xmax)/2, (next_ymin + next_ymax)/2]
 
-    #             camera_proj_speed = 0
+                camera_proj_speed = 0
 
-    #             frisbee_pixel_width = ((next_xmax - next_xmin) + (curr_xmax - curr_xmin))/2
+                frisbee_pixel_width = ((next_xmax - next_xmin) + (curr_xmax - curr_xmin))/2
 
-    #             physics_speed = diameter_algo.get_physics_algo_speed(frisbee_pixel_width, curr_centroid, next_centroid)
+                physics_speed = diameter_algo.get_physics_algo_speed(frisbee_pixel_width, curr_centroid, next_centroid)
 
-    #             physics_speeds.append(physics_speed)
-    #             helpers.draw_on_image(next_xmin, next_ymin, next_xmax, next_ymax, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video_name + "/" + next_image_name)
+                physics_speeds.append(physics_speed)
+                helpers.draw_on_image(next_xmin, next_ymin, next_xmax, next_ymax, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video_name + "/" + next_image_name)
             
-    #         avg_speed = sum(physics_speeds)/len(physics_speeds)
-    #         helpers.draw_on_image(next_xmin, next_ymin, next_xmax, next_ymax, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video_name + "/" + next_image_name.split(".")[0] + "_avg.jpg", avg_phys_speed=avg_speed)
+            avg_speed = sum(physics_speeds)/len(physics_speeds)
+            helpers.draw_on_image(next_xmin, next_ymin, next_xmax, next_ymax, physics_speed, camera_proj_speed, "../data/train/images/" + next_image_name, "../output/" + video_name + "/" + next_image_name.split(".")[0] + "_avg.jpg", avg_phys_speed=avg_speed)
 
 
 if __name__ == '__main__':

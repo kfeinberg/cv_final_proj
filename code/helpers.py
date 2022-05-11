@@ -133,7 +133,7 @@ def get_speed(point1, point2):
     return math.sqrt( ((point1[0]-point2[0])**2)+((point1[1]-point2[1])**2)) / dt
 
 
-def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_image_path, output_image_path, avg_phys_speed="", avg_proj_speed=""):
+def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_image_path, output_image_path, avg_phys_speed="", avg_proj_speed="", centroids=[]):
     img = Image.open(input_image_path)
     
     font_fname = 'arial.ttf'
@@ -148,5 +148,8 @@ def draw_on_image(xmin, ymin, xmax, ymax, physics_speed, camera_speed, input_ima
         draw.text((10, 110),"Average physics speed: " + str(round(avg_phys_speed, 2)) + "m/s", (0,0,0), font=font)
     if (avg_proj_speed != ""):
         draw.text((10, 160),"Average camera projection speed: " + str(round(avg_proj_speed, 2)) + "m/s", (0,0,0), font=font)
+    if (centroids != []):
+        for i in range(len(centroids)-1):
+            draw.line([(centroids[i][0],centroids[i][1]), (centroids[i+1][0],centroids[i+1][1])], fill="red", width = 5)
 
     img.save(output_image_path)
