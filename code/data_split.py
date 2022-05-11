@@ -121,6 +121,6 @@ if __name__ == "__main__":
     dirs = getDirectoryList('./data/images/')
     #print(dirs)
     dest = "./data"
-    ratio = [0.6, 0.1, 0.3]
+    ratio = [0.15, 0.1, 0.75]
 
     img_split(dirs, dest, ratio)
